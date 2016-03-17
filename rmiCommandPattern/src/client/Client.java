@@ -26,21 +26,23 @@ public class Client
 	    Registry registry = LocateRegistry.getRegistry(1234);
 	    DoSomethingService uRemoteObject = (DoSomethingService) registry.lookup("Service");
 	    System.out.println("Service found");
-	    
-	    Callback client = new ClientCallback();
-	    Callback clientstub = (Callback) UnicastRemoteObject.exportObject(client,0);
-	    
+
+	    Callback client = new ClientCallback(); // creating a callback object
+	    Callback clientstub = (Callback) UnicastRemoteObject.exportObject(client, 0); // stub of client callback
+
 	    Command rc = new RegisterCommand();
 	    Command lc = new LoginCommand();
 	    Command cc;
 	    try
 	    {
-		cc = new CalculationCommand(Integer.parseInt(args[0]),clientstub);
+		cc = new CalculationCommand(Integer.parseInt(args[0]), clientstub); // surrounded by try/catch in case
+										    // there are no args or the args
+										    // cannot be parsed to int
 	    } catch (Exception e)
 	    {
 		System.err.println("Check your arguments! Could not find arguments or arguments are not int!");
 		System.err.println("Using default amount of digits! (200)");
-		cc = new CalculationCommand(200,clientstub);
+		cc = new CalculationCommand(200, clientstub);
 	    }
 	    uRemoteObject.doSomething(rc);
 	    uRemoteObject.doSomething(lc);

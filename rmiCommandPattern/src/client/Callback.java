@@ -8,6 +8,8 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
+ * Callback Interface
+ * 
  * @author Moritz Mühlehner
  *
  */

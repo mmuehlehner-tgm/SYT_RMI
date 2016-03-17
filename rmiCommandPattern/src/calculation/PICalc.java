@@ -1,6 +1,9 @@
 package calculation;
 
 import java.math.BigDecimal;
+import java.rmi.RemoteException;
+
+import client.Callback;
 
 public class PICalc implements Calculation
 {
@@ -19,14 +22,14 @@ public class PICalc implements Calculation
     @Override
     public void calculate(int digits)
     {
-	System.out.println("Calculating...");
+	System.out.println("Calculating Pi with "+digits+" digits...");
 	pi=computePi(digits);
     }
 
     @Override
-    public void getResult()
+    public void getResult(Callback clientstub) throws RemoteException
     {
-	System.out.println(""+pi);
+	clientstub.get(this.pi);
 
     }
     
